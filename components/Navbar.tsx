@@ -16,7 +16,7 @@ export default function Navbar() {
     <nav className="h-16 w-full shadow-sm bg-(--color-background) flex items-center justify-between px-6 z-50">
       {/* Logo on the Left */}
       <div className="ms-10 md:ms-0 flex items-center gap-2 font-bold text-xl">
-           <Image src="/logo.svg" alt="Logo" width={150} height={28} className="w-28 lg:w-30" />
+           <Image src="/Logo.svg" alt="Logo" width={150} height={28} className="w-28 lg:w-30" />
       </div>
 
       {/* User Info on the Right */}
