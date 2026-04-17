@@ -1,0 +1,19 @@
+export default function Loading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-background)]">
+      
+      <div className="flex flex-col items-center gap-4">
+        
+        {/* Spinner */}
+        <div className="w-10 h-10 border-4 border-[var(--color-surface-low)] border-t-[var(--color-primary)] rounded-full animate-spin"></div>
+
+        {/* Text */}
+        <p className="text-[var(--color-slate-600)] text-sm">
+          Loading, please wait...
+        </p>
+
+      </div>
+
+    </div>
+  );
+}

@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Colors */
+  --color-primary: #003D9B;
+  --color-primary-container: #0052CC;
+
+  /*  Surface */
+  --color-surface-high: #D7E2FF;
+  --color-surface-low: #F1F3FF;
+  --color-background: #F9F9FF;
+
+  /* Neutral (Slate) */
+  --color-slate-900: #041B3C;
+  --color-slate-600: #4F5F7B;
+  --color-slate-300: #C3C6D6;
+
+  /*  Semantic */
+  --color-success: #6FD3A3;
+  --color-error: #C81E1E;
+  --color-error-low: #FDEDED;
+  --color-warning: #F4A300;
+
+  /* fonts */
+  --font-display-lg: 56px;
+  --font-headline-lg: 32px;
+  --font-title-md: 18px;
+  --font-body-md: 14px;
+  --font-label-sm: 11px;
+/* bordersRadius */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --radius-xs: 4px;
+
+  --shadow-soft: 0 4px 20px rgba(0,0,0,0.05);
+  --shadow-hover: 0 8px 30px rgba(0,0,0,0.1);
+
+}
+body {
+  background: var(--color-background);
+}
+@layer components {
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  /* 🔵 Primary Button */
+  .btn-primary {
+    background: var(--color-primary);
+    color: white;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    transition: 0.3s;
+  }
+
+  .btn-primary:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  /* ⚪ Secondary Button */
+  .btn-secondary {
+    background: var(--color-surface-low);
+    color: var(--color-slate-900);
+    border-radius: var(--radius-md);
+  }
+
+  /* 🧊 Glass Card */
+  .glass-card {
+    backdrop-filter: var(--blur-glass);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+}
+@layer base {
+  h1 {
+    font-size: var(--font-headline-lg);
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: var(--font-headline-lg);
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: var(--font-title-md);
+    font-weight: 600;
+  }
+
+  p {
+    font-size: var(--font-body-md);
+    color: var(--color-slate-600);
+  }
+
+  small {
+    font-size: var(--font-label-sm);
+  }
+}
