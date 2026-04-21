@@ -22,7 +22,7 @@ export default function NotFound() {
         </p>
 
         {/* Button */}
-        <Link href="/">
+        <Link href="/dashboard/projects" className="inline-block">
           <button className="btn-primary mt-6">
             Go Back Home
           </button>

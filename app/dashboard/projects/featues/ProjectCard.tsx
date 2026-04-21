@@ -1,4 +1,4 @@
-import { Project } from "../action";
+import { Project } from "@/types/types";
 
 export default function ProjectCard({ project }: { project: Project }) {
   // format the date without any library
@@ -12,7 +12,7 @@ const formattedDate = `${date.getDate()} ${
   months[date.getMonth()]
 } ${date.getFullYear()}`;
   return (
-    <div className="bg-white p-5 rounded-xs shadow-sm flex flex-col justify-between">
+    <div className="mb-4 md:mb-0 bg-white h-55 p-5 rounded-xs shadow-sm flex flex-col justify-between">
       <div>
         <h3 className="font-semibold text-gray-800">{project.name}</h3>
 

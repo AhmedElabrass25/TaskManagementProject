@@ -20,6 +20,7 @@ const ProjectForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(addprojectformSchema),
+    mode: "onTouched",
   });
   const descriptionLength = watch("description")?.length || 0;
 

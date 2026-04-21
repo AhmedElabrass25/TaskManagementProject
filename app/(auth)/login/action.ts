@@ -1,48 +1,50 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { apiFetch } from "@/lib/api";
 
-type loginUser = {
-    email: string;
-    password: string;
-   
+export async function loginUser(user: {
+  email: string;
+  password: string;
+  remember?: boolean;
+}) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/token?grant_type=password`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      },
+      body: JSON.stringify({
+        email: user.email,
+        password: user.password,
+      }),
+    }
+  );
 
-}
-type AuthResponse = {
-  access_token: string;
-  refresh_token: string;
-  user: any;
-};
-export async function loginUser(user: loginUser) {
-  console.log(user);
-    try{
-    const res = await apiFetch<AuthResponse>("/auth/v1/token?grant_type=password", {
-        method: "POST",
-        body: {
-            email: user.email,
-            password: user.password,
-        },
-    });
-    const cookieStore = await cookies();
-    cookieStore.set("access_token", res.access_token, {
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data?.message || "Login failed");
+  }
+
+  const cookieStore = await cookies();
+
+  cookieStore.set("access_token", data.access_token, {
+    httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 60 * 60,
+  });
+
+  cookieStore.set("refresh_token", data.refresh_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
-      maxAge: 60 * 60, // 1 hour
-    });
+      maxAge: user.remember
+        ? 60 * 60 * 24 * 30 // 30 days
+        : undefined,
+  });
 
-    cookieStore.set("refresh_token", res.refresh_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 30, // 30 days
-    });
-
-    } catch (error: any) {
-    throw new Error(error.message || "Login failed");
+  return data;
 }
-
-}
-       
-

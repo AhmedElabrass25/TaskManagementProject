@@ -1,5 +1,3 @@
-import Input from "@/components/ui/Input"
-import Button from "@/components/ui/Button"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -8,10 +6,8 @@ const page = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (token) {
-    // redirect to dashboard
-    redirect("/dashboard");
+    redirect("/dashboard/projects");
   }else {
-    // show login page
     redirect("/login");
   }
  

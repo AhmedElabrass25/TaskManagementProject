@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("access_token")?.value;
+  const refreshToken = request.cookies.get("refresh_token")?.value;
 
   const { pathname } = request.nextUrl;
 
@@ -17,13 +18,11 @@ export function middleware(request: NextRequest) {
   const isProtectedRoute =
     pathname.startsWith("/dashboard");
 
-  // ❌ لو عامل login ومداخل auth pages
   if (token && isPublicAuthPage) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // ❌ لو مش عامل login وداخل protected routes
-  if (!token && isProtectedRoute) {
+  if (!token && !refreshToken && isProtectedRoute) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 

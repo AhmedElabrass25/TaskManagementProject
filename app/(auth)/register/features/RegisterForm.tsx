@@ -17,8 +17,10 @@ const RegisterForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
+    mode: "onTouched",
     resolver: zodResolver(registerSchema),
   });
 

@@ -26,6 +26,8 @@ export default function ResetForm({
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(resetPasswordSchema),
+    mode: "onTouched",
+
   });
 
   const onSubmit = async (data: FormData) => {

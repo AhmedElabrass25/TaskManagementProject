@@ -16,11 +16,12 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
+    mode: "onTouched",
     resolver: zodResolver(loginSchema),
   });
-
   const onSubmit = async (data: FormData) => {
     try {
       await loginUser({
@@ -66,7 +67,7 @@ const LoginForm = () => {
           {/* make remeber check and forget password */}
         <div className="w-full flex items-center justify-between pb-4">
           <div className="flex items-center gap-2">
-            <input type="checkbox" id="remember" />
+            <input type="checkbox" id="remember" {...register("remember")} />
             <label htmlFor="remember">Remember me</label>
           </div>
           <Link href="/forgot-password" className="text-(--color-primary)">

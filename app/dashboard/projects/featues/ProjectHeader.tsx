@@ -6,7 +6,7 @@ const ProjectHeader = () => {
   return (
       
           <div className="w-full flex justify-end">
-                <Link href="/dashboard/projects/add-project">
+                <Link href="/dashboard/projects/add">
                   <Button className="w-53.5">
                     + Create New Project
                   </Button>

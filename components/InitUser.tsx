@@ -13,5 +13,5 @@ export default function InitUser() {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  return null; // 👈 مش بيعرض حاجة
+  return null; 
 }

@@ -1,14 +1,12 @@
 // components/ProjectsContent.tsx
+import { Project } from "@/types/types";
 import { getAllProjects } from "../action";
 import AddProjectCard from "./AddProjectCard";
 import EmptyState from "./EmptyState";
 import ProjectCard from "./ProjectCard";
 
-export default async function ProjectsContent() {
-  const projects = await getAllProjects();
-
-
-  if (!projects ||projects.length === 0) {
+export default async function ProjectsContent({ projects }: { projects: Project[] }) {
+  if (!projects || projects.length === 0) {
     return <EmptyState />;
   }
 
