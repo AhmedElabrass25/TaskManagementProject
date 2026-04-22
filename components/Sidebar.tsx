@@ -2,7 +2,7 @@
 import { logoutAction } from "@/services/logout.service";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -10,13 +10,21 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const menuItems = [
-    { icon: "/icons/dashboard.svg", label: "Projects", active: true, href: "/dashboard/projects" },
-    { icon: "/icons/epics.svg", label: "Project Epics", active: false, href: "/dashboard/projects/epics" },
-    { icon: "/icons/tasks.svg", label: "Project Tasks", active: false, href: "/dashboard/projects/tasks" },
-    { icon: "/icons/groups.svg", label: "Project Members", active: false, href: "/dashboard/projects/members" },
-    { icon: "/icons/details.svg", label: "Project Details", active: false, href: "/dashboard/projects/details" },
-  ];
+  const pathname=usePathname();
+  const params = useParams();
+  const projectId = params.projectId as string | undefined;
+  console.log(params);
+  const isActive = (match: string) => pathname.includes(match);
+  const menuItems = projectId
+    ? [
+        { icon: "/icons/dashboard.svg", label: "Projects", active: false, href: "/dashboard/projects",match: "projects", },
+        { icon: "/icons/epics.svg", label: "Project Epics", active: false, href: `/dashboard/project/${projectId}/epics`,match: "epics", },
+        { icon: "/icons/tasks.svg", label: "Project Tasks", active: false, href: `/dashboard/project/${projectId}/tasks`,match: "tasks", },
+        { icon: "/icons/groups.svg", label: "Project Members", active: false, href: `/dashboard/project/${projectId}/members`,match: "members", },
+        { icon: "/icons/details.svg", label: "Project Details", active: false, href: `/dashboard/project/${projectId}/edit`,match: "edit", },
+      ]: [
+        { icon: "/icons/dashboard.svg", label: "Projects", active: true, href: "/dashboard/projects",match: "projects", },
+      ];
   // logout handler
   const handleLogout = async () => {
     try {
@@ -70,8 +78,8 @@ export default function Sidebar() {
           {menuItems.map((item) => (
             <Link href={item.href || "#"} key={item.label}>
             <button
-             
-              className="group w-full flex items-center gap-4 p-3 hover:bg-white cursor-pointer rounded-sm text-slate-900"
+ className={`group w-full flex items-center gap-4 p-3 rounded-sm cursor-pointer transition
+      ${isActive(item.match) ? "bg-white text-black" : "text-slate-900 hover:bg-white"}`}             
             >
               <Image
                 src={item.icon}

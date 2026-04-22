@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { getAllProjectsPaginated } from "../action";
 import ProjectCard from "./ProjectCard";
 import AddProjectCard from "./AddProjectCard";
@@ -9,12 +8,13 @@ export default function MobileInfiniteProjects() {
   const [projects, setProjects] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const loaderRef = useRef<HTMLDivElement | null>(null);
   const [hasMore, setHasMore] = useState(true);
+
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
   const limit = 5;
 
-  const loadMore = async () => {
+  const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
 
     setLoading(true);
@@ -30,19 +30,26 @@ export default function MobileInfiniteProjects() {
       setHasMore(false);
     }
 
-    setProjects((prev) => [...prev, ...newData]);
-    setPage((prev) => prev + 1);
+    setProjects((prev) => {
+      const merged = [...prev, ...newData];
 
+      return merged.filter(
+        (item, index, self) =>
+          index === self.findIndex((p) => p.id === item.id)
+      );
+    });
+
+    setPage((prev) => prev + 1);
     setLoading(false);
-  };    
+  }, [page, loading, hasMore]);
 
   useEffect(() => {
-    loadMore(); // first load
+    loadMore();
   }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
+      if (entries[0].isIntersecting && !loading && hasMore) {
         loadMore();
       }
     });
@@ -55,15 +62,16 @@ export default function MobileInfiniteProjects() {
       if (el) observer.unobserve(el);
       observer.disconnect();
     };
-  }, [hasMore, loading, page]);
+  }, [loadMore, loading, hasMore]);
 
   return (
     <div>
       <div className="grid-cols-1 gap-4 mb-3">
-        {projects.map((p) => (
+        {projects?.map((p) => (
           <ProjectCard key={p.id} project={p} />
         ))}
       </div>
+
       <div className="mt-3">
         <AddProjectCard />
       </div>
@@ -71,7 +79,9 @@ export default function MobileInfiniteProjects() {
       <div ref={loaderRef} className="h-10" />
 
       {loading && (
-        <p className="text-center text-sm text-gray-500">Loading more...</p>
+        <p className="text-center text-sm text-gray-500">
+          Loading more...
+        </p>
       )}
     </div>
   );
