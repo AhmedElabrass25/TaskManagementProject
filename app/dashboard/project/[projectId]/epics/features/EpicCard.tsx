@@ -27,7 +27,7 @@ function EpicCard({ epic }: { epic: IEpicData }) {
         </span>
               <Image src={'/icons/editbtn.svg'} alt="Edit Epic" width={3} height={3} />
       </div>
-      <h3 className="text-[28px] leading-tight font-semibold text-gray-950 mt-4">
+      <h3 className="text-[28px] leading-tight font-semibold text-gray-950 mt-4 line-clamp-1">
         {epic.description}
       </h3>
       <div className="flex justify-between items-end mt-5">
