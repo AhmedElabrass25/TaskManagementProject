@@ -24,7 +24,7 @@ const Header = () => {
             />
           </div>
           <Link href="epics/new" className="hidden md:block">
-            <Button className="w-fit h-12 flex items-center justify-center gap-2">
+            <Button className="w-fit h-12 flex items-center justify-center gap-2 rounded-xs">
               +<span>New Epic</span>
             </Button>
           </Link>

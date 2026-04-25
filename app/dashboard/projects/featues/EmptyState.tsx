@@ -17,7 +17,7 @@ export default function EmptyState() {
       </div>
 
 
-      <Link href="/dashboard/projects/add-project" className="flex items-center gap-3 bg-(--color-primary) text-white px-8 py-3.5 rounded-xs text-lg font-semibold hover:bg-[#1e3a8a]/90 transition-colors shadow-lg shadow-[#1e3a8a]/20">
+      <Link href="/dashboard/projects/add" className="flex items-center gap-3 bg-(--color-primary) text-white px-8 py-3.5 rounded-xs text-lg font-semibold hover:bg-[#1e3a8a]/90 transition-colors shadow-lg shadow-[#1e3a8a]/20">
        
 + Create New Project
       

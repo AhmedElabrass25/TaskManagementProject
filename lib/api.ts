@@ -17,7 +17,6 @@ export async function apiFetch<T>(
 ): Promise<T> {
   const cookieStore = await cookies();
   let token = cookieStore.get("access_token")?.value;
-
   const makeRequest = (token?: string) => {
     return fetch(`${baseUrl}${endpoint}`, {
       method: options.method,
