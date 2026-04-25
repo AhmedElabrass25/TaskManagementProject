@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Button from "@/components/ui/Button";
 import { IEpicData } from "@/types/types";
 import Image from "next/image";
@@ -14,12 +14,11 @@ export default function EpicDetailsModal({
   epicData,
 }: EpicDetailsProps) {
   if (!isOpen) return null;
-
   return (
-      <div
-            onClick={(e) => e.stopPropagation()}
-
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]">
+    <div
+      onClick={(e) => e.stopPropagation()}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
+    >
       {/* Modal Container */}
       <div className="relative w-full max-w-2xl bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-100">
         {/* 1. Header Section */}
@@ -42,13 +41,18 @@ export default function EpicDetailsModal({
 
           {/* Close Button */}
           <button
-                      onClick={() => {
-                           console.log("clicked");
-    setIsOpen(false);
+            onClick={() => {
+              console.log("clicked");
+              setIsOpen(false);
             }}
             className="text-gray-400 hover:text-gray-600 transition-colors p-2 cursor-pointer"
           >
-           <Image src={'/icons/close.svg'} alt="Close Button" width={14} height={14} />
+            <Image
+              src={"/icons/close.svg"}
+              alt="Close Button"
+              width={14}
+              height={14}
+            />
           </button>
         </div>
 
@@ -68,8 +72,11 @@ export default function EpicDetailsModal({
             </span>
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-[#0052cc] text-white flex items-center justify-center font-bold text-xs">
-                            {epicData.assignee.name.split('').slice(0, 2).join('').toUpperCase()}
-
+                {epicData.assignee.name
+                  .split("")
+                  .slice(0, 2)
+                  .join("")
+                  .toUpperCase()}
               </div>
               <span className="font-semibold text-gray-800 text-sm">
                 {epicData.assignee.name}
@@ -83,8 +90,11 @@ export default function EpicDetailsModal({
             </span>
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-[#d7e2ff] text-[#0052cc] flex items-center justify-center font-bold text-xs border border-blue-100">
-                           {epicData.assignee.name.split('').slice(0, 2).join('').toUpperCase()}
-
+                {epicData.assignee.name
+                  .split("")
+                  .slice(0, 2)
+                  .join("")
+                  .toUpperCase()}
               </div>
               <span className="font-semibold text-gray-800 text-sm">
                 {epicData.assignee.name}
@@ -112,9 +122,10 @@ export default function EpicDetailsModal({
                 <line x1="8" y1="2" x2="8" y2="6"></line>
                 <line x1="3" y1="10" x2="21" y2="10"></line>
               </svg>
-                          <span className="font-semibold text-gray-800 text-sm">
-                              {/* i want format this date */}
-                {epicData.created_at && new Date(epicData.created_at).toLocaleString()}
+              <span className="font-semibold text-gray-800 text-sm">
+                {/* i want format this date */}
+                {epicData.created_at &&
+                  new Date(epicData.created_at).toLocaleString()}
               </span>
             </div>
           </div>

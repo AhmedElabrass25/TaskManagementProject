@@ -6,7 +6,7 @@ import EpicDetailsModal from "./EpicDetailsModal";
 
 function EpicCard({ epic }: { epic: IEpicData }) {
   const [isOpen, setIsOpen] = useState(false);
-  const isDone = epic.status === 'Done';
+  const isDone = false;
 
   return (
     <div
@@ -52,11 +52,11 @@ function EpicCard({ epic }: { epic: IEpicData }) {
         <span
           className={`px-3 py-1.5 rounded-xs text-sm font-semibold tracking-tight ${
             isDone
-              ? 'bg-(--color-surface-low) text-(--color-primary)' // Done
-              : 'bg-(--color-surface-low) text-[#65DCA4]' // To Do
+              ? 'bg-(--color-surface-low) text-(--color-primary)' 
+              : 'bg-(--color-surface-low) text-[#65DCA4]' 
           }`}
         >
-          {epic?.status}
+          {'To Do'}
         </span>
       </div>
       <div className="mt-6">
