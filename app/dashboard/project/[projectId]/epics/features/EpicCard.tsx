@@ -11,7 +11,7 @@ function EpicCard({ epic }: { epic: IEpicData }) {
   return (
     <div
       onClick={() => setIsOpen(true)}
-      className={`relative w-117 min-h-52.75 rounded-lg p-4 flex flex-col justify-between shadow-sm ${
+      className={`relative w-full md:w-117 min-h-52.75 mb-3 md:mb-0 rounded-lg p-4 flex flex-col justify-between shadow-sm ${
         isDone ? 'bg-[#E0E8FF] border-blue-100' : 'border-l-4 border-[#002113] bg-white'
       }`}
     >
@@ -65,7 +65,7 @@ function EpicCard({ epic }: { epic: IEpicData }) {
           <div className="flex items-center gap-2">
             <Image src={'/icons/createdby.svg'} alt="Created by" width={14} height={11} />
             <span>
-              Created by: <span className="font-medium text-gray-700">{epic.created_by.name}</span>
+             <span className="hidden md:block"> Created by:</span> <span className="font-medium text-gray-700">{epic.created_by.name}</span>
             </span>
           </div>
           <div className="flex items-center gap-2">

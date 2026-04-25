@@ -15,7 +15,6 @@ type FormData = z.infer<typeof addprojectformSchema>;
 const UpdateProjectForm = () => {
   const router = useRouter();
   const params = useParams();
-  console.log(params);
   const {
     register,
       handleSubmit,

@@ -2,7 +2,7 @@ export default function EpicCardSkeleton() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="w-117 min-h-52.75 rounded-2xl p-6 bg-white border border-gray-100 flex flex-col justify-between shadow-sm animate-pulse">
+        <div key={i} className="w-full md:w-117 min-h-52.75 rounded-2xl p-6 bg-white border border-gray-100 flex flex-col justify-between shadow-sm animate-pulse">
           {/* 1. Header Skeleton (Epic ID & More Button) */}
           <div className="flex justify-between items-center">
             <div className="h-8 w-20 bg-gray-200 rounded-lg"></div>

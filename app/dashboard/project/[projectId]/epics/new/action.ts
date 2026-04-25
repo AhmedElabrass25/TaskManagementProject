@@ -11,7 +11,6 @@ type AddEpic = {
     deadline?: string;
 }
 export async function addEpic(ebic: AddEpic) {
-  console.log(ebic);
     try{
     const res = await apiFetch<any>("/rest/v1/epics", {
         method: "POST",
@@ -23,7 +22,6 @@ export async function addEpic(ebic: AddEpic) {
             deadline: ebic.deadline,
         },
     });
-        console.log(res);
         return res;
     } catch (error: any) {
     throw new Error(error.message || "Ebic creation failed");

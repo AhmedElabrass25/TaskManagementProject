@@ -9,7 +9,6 @@ type Project = {
     description?: string;
 }
 export async function updateProject(project: Project) {
-  console.log(project);
     try{
     const res = await apiFetch<any>(`/rest/v1/projects?id=eq.${project.id}`, {
         method: "PATCH",
@@ -18,7 +17,6 @@ export async function updateProject(project: Project) {
             description: project.description,
         },
     });
-        console.log(res);
         return res;
     } catch (error: any) {
     throw new Error(error.message || "Project updated failed");
@@ -26,7 +24,6 @@ export async function updateProject(project: Project) {
 
 }
 export async function getSingleProject(projectId: string) {
-  console.log(projectId);
     try{
     const res = await apiFetch<any>(`/rest/v1/projects?id=eq.${projectId}`, {
         method: "GET",

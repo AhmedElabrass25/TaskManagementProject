@@ -14,7 +14,6 @@ const AllMembers = () => {
   const params: { projectId?: string } = useParams();
     const [members, setMembers] = useState<IMember[]>([]);
     const [loading, setLoading] = useState(true);
-    console.log(members);
   useEffect(() => {
     async function fetchMembers() {
       setLoading(true);

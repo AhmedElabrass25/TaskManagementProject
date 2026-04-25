@@ -20,7 +20,7 @@ export default function EpicDetailsModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
     >
       {/* Modal Container */}
-      <div className="relative w-full max-w-2xl bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-100">
+      <div className="relative w-full h-137.5 md:h-fit overflow-auto max-w-2xl bg-white rounded-lg shadow-2xl border border-gray-100">
         {/* 1. Header Section */}
         <div className="px-10 pt-10 pb-6 flex justify-between items-start">
           <div className="space-y-1">

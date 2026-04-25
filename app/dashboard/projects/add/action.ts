@@ -7,7 +7,6 @@ type addProject = {
     description?: string;
 }
 export async function addProject(project: addProject) {
-  console.log(project);
     try{
     const res = await apiFetch<any>("/rest/v1/projects", {
         method: "POST",

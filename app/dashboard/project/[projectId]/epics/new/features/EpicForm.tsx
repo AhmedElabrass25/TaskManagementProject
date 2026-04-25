@@ -18,7 +18,6 @@ const EpicForm = ({
   membersData: IMember[];
   projectId: string;
   }) => {
-  console.log(membersData);
   const router = useRouter();
   const {
     register,
@@ -29,11 +28,8 @@ const EpicForm = ({
     resolver: zodResolver(addEpicSchema),
     mode: "onTouched",
   });
-  console.log("Validation Errors:", errors);
   const descriptionLength = watch("description")?.length || 0;
   const onSubmit = async (data: FormData) => {
-        console.log(data);
-
     try {
       await addEpic({
         title: data.title,
@@ -53,7 +49,7 @@ const EpicForm = ({
     <>
       {/* Form Card */}
       <section className="w-full flex items-center justify-center">
-        <div className="w-full max-w-212 bg-white rounded-lg p-12 shadow-sm border border-gray-100">
+        <div className="w-full max-w-212 bg-white rounded-lg p-4 md:p-12 shadow-sm border border-gray-100">
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* the email input */}
             <div className="w-full flex flex-col gap-2 pb-6">
