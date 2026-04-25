@@ -13,7 +13,6 @@ export default function Sidebar() {
   const pathname=usePathname();
   const params = useParams();
   const projectId = params.projectId as string | undefined;
-  console.log(params);
   const isActive = (match: string) => pathname.includes(match);
   const menuItems = projectId
     ? [

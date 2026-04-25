@@ -25,7 +25,6 @@ const ProjectForm = () => {
   const descriptionLength = watch("description")?.length || 0;
 
     const onSubmit = async (data: FormData) => {
-      console.log(data);
     try {
       await addProject({
         name: data.name,

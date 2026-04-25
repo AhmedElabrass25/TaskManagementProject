@@ -21,7 +21,7 @@ const formattedDate = `${date.getDate()} ${
       </Link>
       <div>
         <h3 className="font-semibold text-gray-800">{project.name}</h3>
-        <p className="text-sm text-gray-500 mt-2 line-clamp-3">
+        <p className="text-sm text-gray-500 mt-2 line-clamp-5 whitespace-normal break-all">
           {project.description || "No description"}
         </p>
       </div>
