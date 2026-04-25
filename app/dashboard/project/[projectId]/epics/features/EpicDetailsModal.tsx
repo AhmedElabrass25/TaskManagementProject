@@ -2,7 +2,6 @@
 import Button from "@/components/ui/Button";
 import { IEpicData } from "@/types/types";
 import Image from "next/image";
-
 interface EpicDetailsProps {
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
