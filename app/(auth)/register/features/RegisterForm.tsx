@@ -8,8 +8,8 @@ import {z} from "zod";
 import { registerUser } from "../action";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import FormInputs from "./FormInputs";
+import { toast } from "sonner";
 type FormData = z.infer<typeof registerSchema>;
 
 const RegisterForm = () => {
@@ -17,7 +17,6 @@ const RegisterForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     mode: "onTouched",
@@ -25,8 +24,6 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-  console.log(data);
-
     try {
       await registerUser({
         name: data.name,
@@ -35,21 +32,17 @@ const RegisterForm = () => {
         department: data.department,
       });
       toast.success("Account created successfully");
-      router.push("/dashboard/projects");
+      router.push("/projects");
 
     } catch (error: any) {
-        console.log("SERVER ERROR:", error);
-
       toast.error(error.message || "Signup failed");
       return;
     }
-    console.log(data);
-
   };
   return (
     <section className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
-            <FormInputs register={register} errors={errors} />
+            <FormInputs register={register} errors={errors} isSubmitting={isSubmitting} />
      {/* the submit button */}
         <div className="w-full flex justify-center">
           <Button

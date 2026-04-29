@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -16,13 +16,13 @@ export default function Sidebar() {
   const isActive = (match: string) => pathname.includes(match);
   const menuItems = projectId
     ? [
-        { icon: "/icons/dashboard.svg", label: "Projects", active: false, href: "/dashboard/projects",match: "projects", },
-        { icon: "/icons/epics.svg", label: "Project Epics", active: false, href: `/dashboard/project/${projectId}/epics`,match: "epics", },
-        { icon: "/icons/tasks.svg", label: "Project Tasks", active: false, href: `/dashboard/project/${projectId}/tasks`,match: "tasks", },
-        { icon: "/icons/groups.svg", label: "Project Members", active: false, href: `/dashboard/project/${projectId}/members`,match: "members", },
-        { icon: "/icons/details.svg", label: "Project Details", active: false, href: `/dashboard/project/${projectId}/edit`,match: "edit", },
+        { icon: "/icons/dashboard.svg", label: "Projects", active: false, href: "/projects",match: "projects", },
+        { icon: "/icons/epics.svg", label: "Project Epics", active: false, href: `/project/${projectId}/epics`,match: "epics", },
+        { icon: "/icons/tasks.svg", label: "Project Tasks", active: false, href: `/project/${projectId}/tasks`,match: "tasks", },
+        { icon: "/icons/groups.svg", label: "Project Members", active: false, href: `/project/${projectId}/members`,match: "members", },
+        { icon: "/icons/details.svg", label: "Project Details", active: false, href: `/project/${projectId}/edit`,match: "edit", },
       ]: [
-        { icon: "/icons/dashboard.svg", label: "Projects", active: true, href: "/dashboard/projects",match: "projects", },
+        { icon: "/icons/dashboard.svg", label: "Projects", active: true, href: "/projects",match: "projects", },
       ];
   // logout handler
   const handleLogout = async () => {

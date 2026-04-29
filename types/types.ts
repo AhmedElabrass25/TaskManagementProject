@@ -41,6 +41,7 @@ export interface IEpicData {
 }
 
 export interface IUserInfo {
+  id: string;
   sub: string;
   name: string;
   email: string;

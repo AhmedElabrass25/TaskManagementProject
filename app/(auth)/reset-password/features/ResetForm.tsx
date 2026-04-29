@@ -6,10 +6,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { resetPasswordSchema } from "../schema";
 import { updatePassword } from "../action";
 import Link from "next/link";
+import { toast } from "sonner";
 
 type FormData = z.infer<typeof resetPasswordSchema>;
 

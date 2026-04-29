@@ -16,7 +16,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/reset-password");
 
   const isProtectedRoute =
-    pathname.startsWith("/dashboard");
+    pathname.startsWith("/projects") || pathname.startsWith("/project");
 
   if (token && isPublicAuthPage) {
     return NextResponse.redirect(new URL("/", request.url));

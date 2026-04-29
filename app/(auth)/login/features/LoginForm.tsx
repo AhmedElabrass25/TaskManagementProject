@@ -1,6 +1,6 @@
 "use client";
 import Input from "@/components/ui/Input";
-import toast from "react-hot-toast";
+
 import { loginSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import { loginUser } from "../action";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 type FormData = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
@@ -22,6 +23,7 @@ const LoginForm = () => {
     mode: "onTouched",
     resolver: zodResolver(loginSchema),
   });
+
   const onSubmit = async (data: FormData) => {
     try {
       await loginUser({
@@ -29,7 +31,7 @@ const LoginForm = () => {
         password: data.password,
       });
       toast.success("Logged in successfully");
-      router.push("/dashboard/projects");
+      router.push("/projects");
     } catch (error: any) {
       toast.error(error.message || "Login failed");
       return;
@@ -46,6 +48,7 @@ const LoginForm = () => {
           <Input
             {...register("email")}
             error={errors.email?.message}
+            disabled={isSubmitting}
             type="email"
             id="email"
             placeholder="Enter your email"
@@ -59,6 +62,7 @@ const LoginForm = () => {
             className="w-full"
             {...register("password")}
             error={errors.password?.message}
+            disabled={isSubmitting}
             type="password"
             id="password"
             placeholder="Enter your password"
@@ -78,9 +82,10 @@ const LoginForm = () => {
         <div className="w-full flex justify-center">
           <Button
             disabled={isSubmitting}
-            className="w-full"
+            className={`w-full ${isSubmitting ? "cursor-not-allowed":""}`}
             variant="primary"
             type="submit"
+            
           >
             {isSubmitting ? "Login..." : "Login"}
           </Button>
