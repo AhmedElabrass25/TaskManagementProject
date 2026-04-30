@@ -9,7 +9,6 @@ type Props = {
 const NewEpic = async ({ params }: Props) => {
     const {projectId}=await params;
     const membersData: IMember[] = await getMembers(projectId);
-    console.log(params);
   return (
       <section className="mt-10 ">
      <Header />

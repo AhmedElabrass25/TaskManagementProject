@@ -6,12 +6,9 @@ import EpicDetailsModal from "./EpicDetailsModal";
 import UpdateEpicModal from "./UpdateEpicModal";
 
 function EpicCard({ epic }: { epic: IEpicData }) {
-  console.log(epic);
   const [isOpen, setIsOpen] = useState(false);
   const [isUpdateEpicOpen, setIsUpdateEpicOpen] = useState<boolean>(false);
-
   const isDone = false;
-
   return (
     <div
       className={`relative w-full md:w-117 min-h-52.75 mb-3 md:mb-0 rounded-lg p-4 flex flex-col justify-between shadow-sm ${

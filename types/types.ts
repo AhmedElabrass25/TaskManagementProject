@@ -47,3 +47,38 @@ export interface IUserInfo {
   email: string;
   department: string;
 }
+export type IUser = {
+  id: string;
+  name: string;
+  email: string;
+  department: string;
+};
+
+export type ITaskEpic = {
+  id: string;
+  title: string;
+  epic_id: string;
+};
+
+export type ITask = {
+  id: string;
+  project_id: string;
+  epic_id: string | null;
+  title: string;
+  description: string | null;
+  status:
+    | "TO_DO"
+    | "IN_PROGRESS"
+    | "BLOCKED"
+    | "IN_REVIEW"
+    | "READY_FOR_QA"
+    | "REOPENED"
+    | "READY_FOR_PRODUCTION"
+    | "DONE";
+  created_at: string;
+  due_date: string | null;
+  task_id: string;
+  epic: ITaskEpic | null;
+  created_by: IUser;
+  assignee: IUser | null;
+};
