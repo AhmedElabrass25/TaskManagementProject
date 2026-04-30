@@ -7,9 +7,9 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { forgotPasswordSchema } from "../schema";
 import { recoverPassword } from "../action";
-import toast from "react-hot-toast";
 import { z } from "zod";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type FormData = z.infer<typeof forgotPasswordSchema>;
 
