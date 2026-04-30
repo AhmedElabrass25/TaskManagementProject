@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { taskSchema } from "../schema";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Input from "@/components/ui/Input";
 import { z } from "zod";
 import Button from "@/components/ui/Button";
@@ -21,6 +21,8 @@ const TaskForm = ({
   allEpics: IEpicData[];
 }) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const statusParam = searchParams.get("status") || "TO_DO";
   const {
     register,
     handleSubmit,
@@ -32,8 +34,7 @@ const TaskForm = ({
       defaultValues: {
           project_id: projectId,
           epic_id: "",
-    
-    status: "TO_DO",
+    status: statusParam as FormData["status"],
   },
   });
   const descriptionLength = watch("description")?.length || 0;
@@ -52,7 +53,7 @@ const onSubmit = async (data: FormData) => {
     });
 
     toast.success("Task created successfully");
-    router.push("/projects");
+    router.push(`/project/${projectId}/tasks`);
   } catch (error: any) {
     toast.error(error.message || "Task creation failed");
   }
@@ -123,7 +124,7 @@ const onSubmit = async (data: FormData) => {
                 </div>
               </div>
 
-              {/* Deadline Date */}
+              {/* Status */}
               <div className="space-y-4">
                 <label className="text-[13px] font-bold text-gray-500 uppercase tracking-wider block">
                   Status

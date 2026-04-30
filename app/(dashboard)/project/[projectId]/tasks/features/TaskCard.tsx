@@ -6,7 +6,6 @@ export default function TaskCard({ task }: { task: ITask }) {
   // Matches the blue left accent for "In Progress" seen in viewboard_2.PNG
   const borderAccent =
     task.status === "IN_PROGRESS" ? "border-l-[3px] border-l-blue-600" : "";
-
   // Logic for the red state
   const isDelayed = task.status === "BLOCKED";
 
@@ -16,7 +15,6 @@ export default function TaskCard({ task }: { task: ITask }) {
         isDelayed ? "bg-red-50/40 border-red-100" : ""
       }`}
     >
-      {/* Title - using text-slate-800 for high contrast as seen in the image */}
       <h4 className="text-[13px] font-semibold text-slate-800 leading-snug mb-4">
         {task.title}
       </h4>
@@ -25,7 +23,6 @@ export default function TaskCard({ task }: { task: ITask }) {
         <div className="flex items-center gap-1.5">
           {isDelayed ? (
             <div className="flex items-center gap-1.2 text-[10px] font-bold text-red-500 uppercase tracking-tight">
-              {/* Added a simple triangle alert SVG to match the image exactly */}
               <svg className="w-3 h-3 fill-current" viewBox="0 0 20 20">
                 <path d="M10 2l-8 16h16L10 2zm1 13H9v-2h2v2zm0-4H9V7h2v4z" />
               </svg>
@@ -39,7 +36,6 @@ export default function TaskCard({ task }: { task: ITask }) {
                   : "text-slate-400"
               }`}
             >
-              {/* Replaced dot Image with a tiny calendar icon as per design */}
               <svg
                 className="w-3.5 h-3.5"
                 fill="none"
@@ -69,8 +65,6 @@ export default function TaskCard({ task }: { task: ITask }) {
             </div>
           )}
         </div>
-
-        {/* Assignee Avatar - matching the size and shadow from the design */}
         <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-[9px] font-bold text-slate-600 border border-white shadow-sm ring-1 ring-slate-200">
           {task?.assignee?.name
             ? task.assignee.name
