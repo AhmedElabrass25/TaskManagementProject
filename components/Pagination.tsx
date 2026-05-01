@@ -6,7 +6,7 @@ type Props = {
   total: number;
   page: number;
   limit: number;
-  search:string
+  search?:string
 };
 const Pagination = ({ total, page, limit,search }: Props) => {
 
