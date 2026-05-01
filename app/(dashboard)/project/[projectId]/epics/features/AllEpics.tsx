@@ -46,7 +46,7 @@ const AllEpics = async ({
             <p>
               Showing {PagiantedEpics.length} of {total} active epics
             </p>
-            <Pagination total={total} page={page} limit={limit} search={search}/>
+            <Pagination total={total} page={page} limit={limit}/>
           </div>
         </div>
       </div>

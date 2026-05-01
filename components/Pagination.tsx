@@ -6,29 +6,23 @@ type Props = {
   total: number;
   page: number;
   limit: number;
-  search?:string
 };
-const Pagination = ({ total, page, limit,search }: Props) => {
-
-      const router = useRouter();
+const Pagination = ({ total, page, limit }: Props) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-
   const totalPages = Math.ceil(total / limit);
-
   const goToPage = (newPage: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(newPage));
-    if (search) {
-  params.set("search", search);
-}
     router.push(`?${params.toString()}`);
   };
   return (
     <div className="flex items-center gap-2">
-          <button
-              disabled={page <= 1}
+      <button
+        disabled={page <= 1}
         onClick={() => goToPage(page - 1)}
-              className={`h-8 w-8 flex items-center justify-center bg-[#c3c6d600] border border-[#c3c6d641] rounded-xs ${page <= 1 ? "cursor-not-allowed" : "cursor-pointer"}`}>
+        className={`h-8 w-8 flex items-center justify-center bg-[#c3c6d600] border border-[#c3c6d641] rounded-xs ${page <= 1 ? "cursor-not-allowed" : "cursor-pointer"}`}
+      >
         <Image
           src="/icons/leftarowpagination.svg"
           alt="arrowleft"
@@ -36,7 +30,7 @@ const Pagination = ({ total, page, limit,search }: Props) => {
           height={7}
         />
       </button>
-         {Array.from({ length: totalPages }).map((_, i) => {
+      {Array.from({ length: totalPages }).map((_, i) => {
         const pageNumber = i + 1;
 
         return (
