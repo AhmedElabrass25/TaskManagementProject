@@ -4,7 +4,7 @@ import { getAllTasks, getAllTasksPaginated } from "../action";
 import { ITask } from "@/types/types";
 import Pagination from "@/components/Pagination";
 import ListRow from "./ListRow";
-import TaskDetailsModal from "./TaskDetailsModal";
+import TaskDetailsModal from "./TaskModal.tsx/TaskDetailsModal";
 type Props = {
   projectId: string;
   page?: string;
