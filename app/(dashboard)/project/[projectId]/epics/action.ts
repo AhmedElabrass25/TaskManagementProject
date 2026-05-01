@@ -13,14 +13,20 @@ export async function getAllEpicsPaginated({
   limit,
   offset,
   projectId,
+  search=""
 }: {
   limit: number;
   offset: number;
   projectId: string;
+  search?:string
 }) {
   try {
+      const searchQuery = search
+      ? `&title=ilike.%25${search}%25`
+      : "";
+
     const res = await apiFetch<any[]>(
-      `/rest/v1/project_epics?project_id=eq.${projectId}&limit=${limit}&offset=${offset}`,
+      `/rest/v1/project_epics?project_id=eq.${projectId}${searchQuery}&limit=${limit}&offset=${offset}`,
       {
         method: "GET",
       },

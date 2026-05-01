@@ -6,8 +6,9 @@ type Props = {
   total: number;
   page: number;
   limit: number;
+  search:string
 };
-const Pagination = ({ total, page, limit }: Props) => {
+const Pagination = ({ total, page, limit,search }: Props) => {
 
       const router = useRouter();
   const searchParams = useSearchParams();
@@ -17,6 +18,9 @@ const Pagination = ({ total, page, limit }: Props) => {
   const goToPage = (newPage: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(newPage));
+    if (search) {
+  params.set("search", search);
+}
     router.push(`?${params.toString()}`);
   };
   return (

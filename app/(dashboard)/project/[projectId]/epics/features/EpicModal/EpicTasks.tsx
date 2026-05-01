@@ -1,11 +1,15 @@
+import { openTaskModal } from "@/store/slices/taskModalSlice";
 import { ITask } from "@/types/types";
 import Image from "next/image";
 import React from "react";
+import { useDispatch } from "react-redux";
 
-const EpicTasks = ({task}:{task:ITask}) => {
+const EpicTasks = ({ task }: { task: ITask }) => {
+  const dispatch=useDispatch();
   return (
     <>
       <div
+        onClick={()=>dispatch(openTaskModal(task.id as string))}
         className="flex items-center justify-between px-6 py-5 border-b last:border-b-0 border-gray-300"
       >
         {/* Left */}

@@ -5,7 +5,7 @@ import EpicCardSkeleton from "./features/EpicCardSkeleton";
 import AllEpics from "./features/AllEpics";
 type Props = {
   params: Promise<{ projectId: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string ,search?: string}>;
 };
 const Epics = async ({ params, searchParams }: Props) => {
   const searchParamsValues = await searchParams;
@@ -13,7 +13,7 @@ const Epics = async ({ params, searchParams }: Props) => {
   
   return (
     <section className="mt-10 ">
-      <Header />
+      <Header search={searchParamsValues.search || ""} />
       <Suspense fallback={<EpicCardSkeleton />}>
       <AllEpics projectId={projectId} searchParamsValues={searchParamsValues} />
       </Suspense>
