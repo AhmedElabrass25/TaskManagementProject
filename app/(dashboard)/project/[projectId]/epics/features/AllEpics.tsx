@@ -18,7 +18,7 @@ const AllEpics = async ({
 
   const limit = 6;
   const offset = (page - 1) * limit;
-    const total = allEpics.length;
+  const total = allEpics.length;
 
   const PagiantedEpics:IEpicData[] = await getAllEpicsPaginated({
     limit,
