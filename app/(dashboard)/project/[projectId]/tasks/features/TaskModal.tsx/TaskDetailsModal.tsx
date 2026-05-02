@@ -27,17 +27,17 @@ export default function TaskDetailsModal() {
   }, [selectedTaskId, projectId]);
   if (!isOpen) return null;
   return (
-    <div
-      onClick={() => dispatch(closeTaskModal())}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4"
+    <div onClick={() => dispatch(closeTaskModal())}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-0 md:p-4"
     >
-      <div className="bg-white w-full max-w-4xl rounded-xs shadow-2xl overflow-auto flex flex-col max-h-[90vh]">
-        <div className="flex flex-1 overflow-hidden">
-          {/* main Content  */}
-          <MainContent  task={task} />
-
-          {/* sidebar */}
-         <Sidebar task={task}/>
+      <div
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+        className="bg-[#F8F9FB] w-full max-w-4xl rounded-xs shadow-2xl overflow-hidden flex flex-col md:flex-row md:h-auto md:max-h-[90vh]"
+      >
+        {/* On mobile, we use a single scroll container */}
+        <div className="flex flex-col md:flex-row flex-1 overflow-y-auto md:overflow-hidden">
+          <MainContent task={task} />
+          <Sidebar task={task} />
         </div>
       </div>
     </div>

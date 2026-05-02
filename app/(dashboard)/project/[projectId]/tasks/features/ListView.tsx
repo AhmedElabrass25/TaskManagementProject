@@ -5,6 +5,8 @@ import { ITask } from "@/types/types";
 import Pagination from "@/components/Pagination";
 import ListRow from "./ListRow";
 import TaskDetailsModal from "./TaskModal.tsx/TaskDetailsModal";
+import { getAvatarColor, StatusBadge } from "../helper";
+import MobileList from "./TaskModal.tsx/MobileList";
 type Props = {
   projectId: string;
   page?: string;
@@ -16,11 +18,11 @@ export default async function ListView({ projectId, page }: Props) {
   const offset = (currentPage - 1) * limit;
   const total = tasks.length;
   const PagiantedTasks = await getAllTasksPaginated(projectId, limit, offset);
-console.log(tasks);
+  console.log(tasks);
   return (
     <>
-      <div className="bg-white rounded-xs border border-slate-200 shadow-sm overflow-hidden">
-        <table className="w-full text-left border-collapse">
+      <div className="hidden lg:table bg-white rounded-xs border border-slate-200 shadow-sm overflow-hidden">
+        <table className="hidden lg:table w-full text-left border-collapse">
           <thead className="bg-slate-50">
             <tr className="border-b border-slate-100">
               <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
@@ -43,10 +45,18 @@ console.log(tasks);
           </thead>
           <tbody className="divide-y divide-slate-50">
             {PagiantedTasks.map((task: any) => (
-           <ListRow task={task} key={task.id}/>
+              <ListRow task={task} key={task.id} />
             ))}
           </tbody>
         </table>
+      </div>
+      {/* list view in mobile */}
+      <div className="block lg:hidden ">
+        <div className="flex flex-col gap-3">
+          {PagiantedTasks.map((task: ITask) => (
+           <MobileList task={task} key={task.id} />
+          ))}
+        </div>
       </div>
       {/* Pagination Footer */}
       <div className="flex items-center justify-between mt-20">
@@ -55,9 +65,8 @@ console.log(tasks);
         </p>
         <Pagination total={total} page={currentPage} limit={limit} />
       </div>
-        <TaskDetailsModal />
+      <TaskDetailsModal />
     </>
   );
 }
-
 

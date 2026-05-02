@@ -10,6 +10,7 @@ import HeaderSection from "./EpicModal/HeaderSection";
 import EpicDetails from "./EpicModal/EpicDetails";
 import EpicTasks from "./EpicModal/EpicTasks";
 import Spinner from "@/components/Spinner";
+import TaskDetailsModal from "../../tasks/features/TaskModal.tsx/TaskDetailsModal";
 interface EpicDetailsProps {
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
@@ -35,6 +36,7 @@ export default function EpicDetailsModal({
   }, [projectId]);
   if (!isOpen) return null;
   return (
+    <>
     <div
       onClick={(e) => e.stopPropagation()}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
@@ -92,6 +94,8 @@ export default function EpicDetailsModal({
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      <TaskDetailsModal/>
+      </>
   );
 }

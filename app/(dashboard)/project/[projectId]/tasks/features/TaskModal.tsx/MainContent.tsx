@@ -11,7 +11,7 @@ const MainContent = ({ task }: { task: ITask| null }) => {
     <>
       <div className="relative flex-[1.8] overflow-y-auto border-r border-slate-100">
         <div className="p-4 shadow-md">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 justify-between md:justify-start mb-4">
             <span className="bg-indigo-50 text-indigo-600 text-[11px] font-bold px-2 py-1 rounded">
               {task?.task_id}
             </span>
@@ -24,8 +24,13 @@ const MainContent = ({ task }: { task: ITask| null }) => {
               />
               <span>{task?.epic?.title || "No Epic Assigned"}</span>
             </div>
+            <button
+              onClick={() => dispatch(closeTaskModal())}
+              className="md:hidden cursor-pointer">
+              <Image src='/icons/close.svg' alt="close icon" width={12} height={12}/>
+            </button>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 leading-tight mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 leading-tight">
             {task?.title}
           </h1>
         </div>
@@ -39,7 +44,7 @@ const MainContent = ({ task }: { task: ITask| null }) => {
           </p>
         </div>
         {/* Modal Footer */}
-        <div className="absolute bottom-0 w-full p-4 bg-[#F1F3FF] border-t border-slate-100 flex items-center justify-between">
+        <div className="hidden md:flex absolute bottom-0 w-full p-4 bg-[#F1F3FF] border-t border-slate-100 items-center justify-between">
           <button className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 text-sm font-semibold transition-colors px-4 py-2">
             <Image
               src="/icons/copyicon.svg"

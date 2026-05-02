@@ -30,10 +30,10 @@ export default function Header({ search }: { search: string }) {
 
   return (
     <div className="w-full mb-10">
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         <h1>Project Epics</h1>
 
-        <div className="flex gap-3 items-center">
+        <div className="flex flex-col md:flex-row gap-3 items-center">
           <div className="w-75 relative">
             <Image
               src="/icons/searchIcon.svg"
