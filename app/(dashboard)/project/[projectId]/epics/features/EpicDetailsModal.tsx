@@ -42,7 +42,7 @@ export default function EpicDetailsModal({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
     >
       {/* Modal Container */}
-      <div className="relative w-full h-137.5 md:h-fit overflow-auto max-w-2xl bg-white rounded-lg shadow-2xl border border-gray-100">
+      <div className="relative w-full h-[80vh] md:h-fit overflow-auto max-w-2xl bg-white rounded-lg shadow-2xl border border-gray-100">
         <HeaderSection epicData={epicData} setIsOpen={setIsOpen} />
         {/* 2. Description */}
         <div className="px-10 mb-10">
@@ -63,7 +63,7 @@ export default function EpicDetailsModal({
           </div>
 
           {/* Empty State Box */}
-          <div className="border-2 border-gray-300 rounded-md">
+          <div className="h-[40vh] overflow-auto border-2 border-gray-300 rounded-md">
             {loading ? (
               <Spinner />
             ) : epicTasks.length > 0 ? (

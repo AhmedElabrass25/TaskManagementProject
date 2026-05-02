@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import { getAllTasks, getAllTasksPaginated } from "../action";
 import { ITask } from "@/types/types";
 import Pagination from "@/components/Pagination";
@@ -21,7 +19,8 @@ export default async function ListView({ projectId, page }: Props) {
   console.log(tasks);
   return (
     <>
-      <div className="hidden lg:table bg-white rounded-xs border border-slate-200 shadow-sm overflow-hidden">
+      {/* list view in large screens */}
+      <div className="hidden lg:table w-full bg-white rounded-xs border border-slate-200 shadow-sm overflow-hidden">
         <table className="hidden lg:table w-full text-left border-collapse">
           <thead className="bg-slate-50">
             <tr className="border-b border-slate-100">
