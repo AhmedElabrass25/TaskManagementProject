@@ -1,25 +1,35 @@
 import { apiFetch } from "@/lib/api";
+import { ITask } from "@/types/types";
 
-export async function getAllTasks(projectId: string) {
+export async function getAllTasks({
+  projectId,
+  search,
+}: {
+  projectId: string;
+  search?: string;
+}) {
   try {
-    const res = await apiFetch<any[]>(
-      `/rest/v1/project_tasks?project_id=eq.${projectId}`,
+    const res = await apiFetch<ITask[]>(
+      `/rest/v1/project_tasks?project_id=eq.${projectId}&${search ? `title=ilike.%25${search}%25` : ""}`,
       {
         method: "GET",
       },
     );
     if (!res) {
       throw new Error("Failed to fetch tasks");
-      }
-    return res;  
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch tasks");
+    }
+    return res;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to fetch tasks");
+    }
+    throw new Error("Failed to fetch tasks due to an unknown error");
   }
 }
 // get taks with epiId
 export async function getEpicTasks(epicId: string) {
   try {
-    const res = await apiFetch<any[]>(
+    const res = await apiFetch<ITask[]>(
       `/rest/v1/project_tasks?epic_id=eq.${epicId}`,
       {
         method: "GET",
@@ -27,16 +37,19 @@ export async function getEpicTasks(epicId: string) {
     );
     if (!res) {
       throw new Error("Failed to fetch tasks");
-      }
-    return res;  
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch tasks");
+    }
+    return res;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to fetch tasks");
+    }
+    throw new Error("Failed to fetch tasks due to an unknown error");
   }
 }
 // get tasks using status ### Fetch tasks by status
 export async function getTasksByStatus(projectId: string, status: string) {
   try {
-    const res = await apiFetch<any[]>(
+    const res = await apiFetch<ITask[]>(
       `/rest/v1/project_tasks?project_id=eq.${projectId}&status=eq.${status}`,
       {
         method: "GET",
@@ -44,15 +57,55 @@ export async function getTasksByStatus(projectId: string, status: string) {
     );
     if (!res) {
       throw new Error("Failed to fetch tasks");
-      }
-    return res;  
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch tasks");
+    }
+    return res;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to fetch tasks");
+    }
+    throw new Error("Failed to fetch tasks due to an unknown error");
+  }
+}
+
+export async function getTasksByStatusPaginated({
+  projectId,
+  status,
+  limit,
+  offset,
+  search,
+}: {
+  projectId: string;
+  status: string;
+  limit: number;
+  offset: number;
+  search?: string;
+}) {
+  try {
+    const searchQuery = search ? `&title=ilike.%25${search}%25` : "";
+    const res = await apiFetch<ITask[]>(
+      `/rest/v1/project_tasks?project_id=eq.${projectId}&status=eq.${status}${searchQuery}&limit=${limit}&offset=${offset}`,
+      {
+        method: "GET",
+        headers: {
+          Prefer: "count=exact",
+        },
+        includeCount: true,
+      },
+    );
+    if (!res) {
+      throw new Error("Failed to fetch tasks");
+    }
+    return res;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to fetch tasks");
+    }
+    throw new Error("Failed to fetch tasks due to an unknown error");
   }
 }
 export async function getSingleTask(projectId: string, taskId: string) {
   try {
-    const res = await apiFetch<any[]>(
+    const res = await apiFetch<ITask[]>(
       `/rest/v1/project_tasks?project_id=eq.${projectId}&id=eq.${taskId}`,
       {
         method: "GET",
@@ -60,26 +113,12 @@ export async function getSingleTask(projectId: string, taskId: string) {
     );
     if (!res) {
       throw new Error("Failed to fetch tasks");
-      }
-    return res[0];  
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch tasks");
-  }
-}
-// ```GET /rest/v1/project_tasks?project_id=eq.{PROJECT_ID}&limit={LIMIT}&offset={OFFSET}
-export async function getAllTasksPaginated(projectId: string, limit: number, offset: number) {
-  try {
-    const res = await apiFetch<any[]>(
-      `/rest/v1/project_tasks?project_id=eq.${projectId}&limit=${limit}&offset=${offset}`,
-      {
-        method: "GET",
-      },
-    );
-    if (!res) {
-      throw new Error("Failed to fetch tasks");
-      }
-    return res;  
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch tasks");
+    }
+    return res[0];
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to fetch tasks");
+    }
+    throw new Error("Failed to fetch tasks due to an unknown error");
   }
 }

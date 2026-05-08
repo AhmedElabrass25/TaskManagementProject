@@ -7,7 +7,7 @@ import Pagination from "@/components/Pagination";
 import { getAllProjects, getAllProjectsPaginated } from "./action";
 import MobileInfiniteProjects from "./featues/MobileInfiniteProjects";
 type Props = {
-  searchParams:Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string }>;
 };
 export default async function Projects({ searchParams }: Props) {
   const searchParamsValues = await searchParams;
@@ -23,19 +23,19 @@ export default async function Projects({ searchParams }: Props) {
       {/* Header */}
       <ProjectHeader />
       <div className="hidden md:block">
-         <Suspense fallback={<ProjectsSkeleton />}>
-        <ProjectsContent projects={PagiantedProjects} />
-      </Suspense>
-      {/* Pagination in large screens  */}
-      <div className="flex items-center justify-between mt-20">
-        <p>
-        Showing {PagiantedProjects.length} of {total} active projects
-        </p>
-        <Pagination total={total} page={page} limit={limit} />
+        <Suspense fallback={<ProjectsSkeleton />}>
+          <ProjectsContent projects={PagiantedProjects} />
+        </Suspense>
+        {/* Pagination in large screens  */}
+        <div className="flex items-center justify-between mt-20">
+          <p>
+            Showing {PagiantedProjects.length} of {total} active projects
+          </p>
+          <Pagination total={total} page={page} limit={limit} />
+        </div>
       </div>
-     </div>
       {/* Infinite Scroll in small screens */}
-        <div className="md:hidden">
+      <div className="md:hidden">
         <MobileInfiniteProjects />
       </div>
     </div>

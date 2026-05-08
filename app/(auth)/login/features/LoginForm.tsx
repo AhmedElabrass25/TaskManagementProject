@@ -1,6 +1,5 @@
 "use client";
 import Input from "@/components/ui/Input";
-
 import { loginSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,12 +7,14 @@ import { z } from "zod";
 import { loginUser } from "../action";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 type FormData = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
   const {
     register,
     handleSubmit,
@@ -31,7 +32,7 @@ const LoginForm = () => {
         password: data.password,
       });
       toast.success("Logged in successfully");
-      router.push("/projects");
+      router.push(redirectUrl || "/projects");
     } catch (error: any) {
       toast.error(error.message || "Login failed");
       return;
@@ -68,7 +69,7 @@ const LoginForm = () => {
             placeholder="Enter your password"
           />
         </div>
-          {/* make remeber check and forget password */}
+        {/* make remeber check and forget password */}
         <div className="w-full flex items-center justify-between pb-4">
           <div className="flex items-center gap-2">
             <input type="checkbox" id="remember" {...register("remember")} />
@@ -82,15 +83,13 @@ const LoginForm = () => {
         <div className="w-full flex justify-center">
           <Button
             disabled={isSubmitting}
-            className={`w-full ${isSubmitting ? "cursor-not-allowed":""}`}
+            className={`w-full ${isSubmitting ? "cursor-not-allowed" : ""}`}
             variant="primary"
             type="submit"
-            
           >
             {isSubmitting ? "Login..." : "Login"}
           </Button>
         </div>
-      
       </form>
       <p className="mt-8 flex items-center justify-center gap-2">
         Don't have an account?{" "}

@@ -1,7 +1,5 @@
-"use client"; 
-
+"use client";
 import Image from "next/image";
-import { useEffect } from "react";
 
 export default function ErrorState({
   error,
@@ -10,23 +8,23 @@ export default function ErrorState({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
-    <div className="flex flex-col flex-1 h-full min-h-[400px] items-center justify-center p-6 bg-slate-50">
-      
-<div className="p-4 rounded-md bg-(--color-error-low) mb-6">
-      <Image src="/icons/error.svg" alt="Error" width={25} height={25} className="" />
-
-</div>
+    <div className="flex flex-col flex-1 h-full min-h-100 items-center justify-center p-6 bg-slate-50">
+      <div className="p-4 rounded-md bg-(--color-error-low) mb-6">
+        <Image
+          src="/icons/error.svg"
+          alt="Error"
+          width={25}
+          height={25}
+          className=""
+        />
+      </div>
       <div className="text-center max-w-md">
         <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
           Something went wrong!
         </h1>
         <p className="text-slate-600 mb-8 leading-relaxed">
-          We encountered an unexpected error while retrieving your projects. 
+          We encountered an unexpected error while retrieving your projects.
           Please try again or contact support if the problem persists.
         </p>
       </div>
@@ -38,11 +36,7 @@ export default function ErrorState({
         >
           Retry Connection
         </button>
-        
-        
       </div>
-
-    
     </div>
   );
 }

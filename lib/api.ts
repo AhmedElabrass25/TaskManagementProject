@@ -6,15 +6,27 @@ import { refreshAccessToken } from "./auth/refresh";
 const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-type RequestOptions = {
+type RequestOptions<B=unknown> = {
   method: "GET" | "POST" | "PUT" | "DELETE"| "PATCH";
-  body?: any;
+  body?: B;
+  headers?: Record<string, string>;
+  includeCount?: boolean;
 };
 
-export async function apiFetch<T>(
+export async function apiFetch<T, B = unknown>(
   endpoint: string,
-  options: RequestOptions
-): Promise<T> {
+  options: RequestOptions<B> & { includeCount: true }
+): Promise<{ data: T; count: number | null }>;
+
+export async function apiFetch<T, B = unknown>(
+  endpoint: string,
+  options: RequestOptions<B> & { includeCount?: false }
+): Promise<T>;
+
+export async function apiFetch<T, B = unknown>(
+  endpoint: string,
+  options: RequestOptions<B>
+): Promise<T | { data: T; count: number | null }> {
   const cookieStore = await cookies();
   let token = cookieStore.get("access_token")?.value;
   const makeRequest = (token?: string) => {
@@ -25,6 +37,7 @@ export async function apiFetch<T>(
         Accept: "application/json",
         apikey: anonKey,
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
       },
       body: options.body ? JSON.stringify(options.body) : undefined,
     });
@@ -47,6 +60,12 @@ export async function apiFetch<T>(
 
   if (!res.ok) {
     throw new Error(data?.message || "Something went wrong");
+  }
+
+  if (options.includeCount) {
+    const range = res.headers.get("content-range");
+    const count = range ? parseInt(range.split("/")[1], 10) : null;
+    return { data, count };
   }
 
   return data;

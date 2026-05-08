@@ -14,7 +14,6 @@ export default function TaskDetailsModal() {
     (state: RootState) => state.taskModal,
   );
   const [task, setTask] = useState<ITask | null>(null);
-  console.log(task);
   const dispatch = useDispatch();
   const { projectId } = useParams();
   useEffect(() => {
@@ -27,7 +26,7 @@ export default function TaskDetailsModal() {
   }, [selectedTaskId, projectId]);
   if (!isOpen) return null;
   return (
-    <div onClick={() => dispatch(closeTaskModal())}
+    <div onClick={() => {dispatch(closeTaskModal())}}
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-0 md:p-4"
     >
       <div

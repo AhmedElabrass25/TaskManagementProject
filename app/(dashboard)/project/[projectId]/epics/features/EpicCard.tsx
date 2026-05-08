@@ -3,7 +3,6 @@ import { IEpicData } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
 import EpicDetailsModal from "./EpicDetailsModal";
-import UpdateEpicModal from "./UpdateEpicModal";
 
 function EpicCard({ epic }: { epic: IEpicData }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +10,8 @@ function EpicCard({ epic }: { epic: IEpicData }) {
   const isDone = false;
   return (
     <div
-      className={`relative w-full md:w-117 min-h-52.75 mb-3 md:mb-0 rounded-lg p-4 flex flex-col justify-between shadow-sm ${
+        onClick={() => setIsOpen(true)}
+      className={`relative w-full md:w-117 min-h-52.75 mb-3 md:mb-0 rounded-lg p-4 flex flex-col justify-between cursor-pointer shadow-sm ${
         isDone ? 'bg-[#E0E8FF] border-blue-100' : 'border-l-4 border-[#002113] bg-white'
       }`}
     >
@@ -33,8 +33,8 @@ function EpicCard({ epic }: { epic: IEpicData }) {
         {epic.description}
       </h3>
       <div
-      onClick={() => setIsOpen(true)}
-      className="flex justify-between items-end mt-5 cursor-pointer">
+    
+      className="flex justify-between items-end mt-5">
         <div className="flex items-center gap-3">
           <div
             className={`w-13 h-13 rounded-xl flex items-center justify-center text-lg font-bold ${
@@ -82,13 +82,6 @@ function EpicCard({ epic }: { epic: IEpicData }) {
         <EpicDetailsModal 
           isOpen={isOpen} 
           setIsOpen={setIsOpen}
-          epicData={epic} 
-        />
-      )}
-       {isUpdateEpicOpen && (
-        <UpdateEpicModal 
-          isUpdateEpicOpen={isUpdateEpicOpen} 
-          setIsUpdateEpicOpen={setIsUpdateEpicOpen}
           epicData={epic} 
         />
       )}

@@ -23,10 +23,10 @@ export interface IMember {
   member_id: string;
   metadata: IMemberMetadata;
   project_id: string;
-  role: 'owner' | 'admin' | 'member' | 'viewer';
+  role: "owner" | "admin" | "member" | "viewer";
   user_id: string;
 }
-type EpicStatus = 'TO DO' | 'Done';
+type EpicStatus = "TO DO" | "Done";
 
 export interface IEpicData {
   id: string;
@@ -81,4 +81,5 @@ export type ITask = {
   epic: ITaskEpic | null;
   created_by: IUser;
   assignee: IUser | null;
+  position?: number;
 };

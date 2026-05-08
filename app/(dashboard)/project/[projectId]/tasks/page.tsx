@@ -1,7 +1,4 @@
-import React from 'react'
-import HeaderSection from './features/HeaderSection'
-import BoardView from './features/BoardView'
-import ListView from './features/ListView'
+import WrapperPage from './features/WrapperPage'
 type Props = {
     params: Promise<{ projectId: string }>,
     searchParams: Promise<{ view?: string , page?: string}>
@@ -11,8 +8,7 @@ const TaskPage = async ({ params, searchParams }: Props) => {
     const { view,page } = await searchParams;
   return (
     <section>
-          <HeaderSection projectId={projectId} view={view} />
-      {view === "board" ? <BoardView projectId={projectId} /> : <ListView projectId={projectId} page={page} />}
+       <WrapperPage projectId={projectId} view={view} page={page} />
     </section>
   )
 }

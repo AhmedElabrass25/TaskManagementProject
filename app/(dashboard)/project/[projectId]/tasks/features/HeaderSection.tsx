@@ -5,8 +5,10 @@ import Button from "@/components/ui/Button";
 type Props = {
   projectId: string;
   view?: string;
+  search:string,
+  setSearch:(value:string)=>void
 };
-const HeaderSection = async ({ projectId, view }: Props) => {
+const HeaderSection = ({ projectId, view,search,setSearch }: Props) => {
   return (
     <>
       <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -27,6 +29,8 @@ const HeaderSection = async ({ projectId, view }: Props) => {
               className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
             />
             <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="Search tasks..."
               className="w-full md:w-64 pl-10 pr-4 py-2 rounded-xs text-sm"

@@ -8,24 +8,22 @@ import RoleBadge from "./RoleBadge";
 import { IMember } from "@/types/types";
 import MemberSkeleton from "../loading";
 
-
 const AllMembers = () => {
   const params: { projectId?: string } = useParams();
-    const [members, setMembers] = useState<IMember[]>([]);
-    const [loading, setLoading] = useState(true);
+  const [members, setMembers] = useState<IMember[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchMembers() {
       setLoading(true);
       const membersData = await getMembers(params.projectId as string);
+      console.log(membersData);
       setMembers(membersData);
       setLoading(false);
     }
     fetchMembers();
   }, [params.projectId]);
   if (loading) {
-    return (
-      <MemberSkeleton/>
-    )
+    return <MemberSkeleton />;
   }
   return (
     <div className="py-4 min-h-screen">

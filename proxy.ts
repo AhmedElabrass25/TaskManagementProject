@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const token = request.cookies.get("access_token")?.value;
   const refreshToken = request.cookies.get("refresh_token")?.value;
 
@@ -10,10 +10,6 @@ export function middleware(request: NextRequest) {
   const isPublicAuthPage =
     pathname.startsWith("/login") ||
     pathname.startsWith("/register");
-
-  const isResetPage =
-    pathname.startsWith("/forgot-password") ||
-    pathname.startsWith("/reset-password");
 
   const isProtectedRoute =
     pathname.startsWith("/projects") || pathname.startsWith("/project");
@@ -28,3 +24,6 @@ export function middleware(request: NextRequest) {
 
   return NextResponse.next();
 }
+export const config = {
+  matcher: ["/projects/:path*", "/project/:path*", "/login", "/register"],
+};

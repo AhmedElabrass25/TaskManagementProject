@@ -1,10 +1,10 @@
 "use server";
 
 import { apiFetch } from "@/lib/api";
+import { IEpicData } from "@/types/types";
 import { title } from "process";
 export type UpdateEpicData = {
-  id: string;
-  title: string;
+  title?: string;
   description?: string;
   assignee_id?: string | null;
   deadline?: string | null;
@@ -25,8 +25,8 @@ export async function getAllEpicsPaginated({
       ? `&title=ilike.%25${search}%25`
       : "";
 
-    const res = await apiFetch<any[]>(
-      `/rest/v1/project_epics?project_id=eq.${projectId}${searchQuery}&limit=${limit}&offset=${offset}`,
+    const res = await apiFetch<IEpicData[]>(
+      `/rest/v1/project_epics?project_id=eq.${projectId}${searchQuery}&order=created_at.asc&limit=${limit}&offset=${offset}`,
       {
         method: "GET",
       },
@@ -35,13 +35,16 @@ export async function getAllEpicsPaginated({
       throw new Error("Failed to fetch epics");
     }
     return res;
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch epics");
+  } catch (error: unknown) {
+    if(error instanceof Error){
+      throw new Error(error.message || "Failed to fetch epics");
+    }
+    throw new Error("Failed to fetch epics due to an unknown error");
   }
 }
 export async function getAllEpics(projectId: string) {
   try {
-    const res = await apiFetch<any[]>(
+    const res = await apiFetch<IEpicData[]>(
       `/rest/v1/project_epics?project_id=eq.${projectId}`,
       {
         method: "GET",
@@ -51,55 +54,20 @@ export async function getAllEpics(projectId: string) {
       throw new Error("Failed to fetch epics");
     }
     return res;
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to fetch epics");
+  } catch (error: unknown) {
+    if(error instanceof Error){
+      throw new Error(error.message || "Failed to fetch epics");  
+    }
+    throw new Error("Failed to fetch epics due to an unknown error");
   }
 }
-// export async function updateEpic(epicData: UpdateEpicData) {
-//   console.log(epicData);
-//   try {
-//     const res = await apiFetch<any>(`/rest/v1/epics?id=eq.${epicData.id}`, {
-//       method: "PATCH",
-//       body: {
-//         title: epicData.title,
-//         description: epicData.description,
-//         assignee_id: epicData.assignee_id,
-//         deadline: epicData.deadline,
-//       },
-//     });
-//     if (!res) {
-//       throw new Error("Failed to fetch epics");
-//     }
-//     return res;
-//   } catch (error: any) {
-//     throw new Error(error.message || "Failed to fetch epics");
-//   }
-// }
-export async function updateEpic(epicData: UpdateEpicData) {
-  console.log(epicData);
-
-  const body: Record<string, any> = {};
-
-  if (epicData.title !== undefined) body.title = epicData.title;
-  if (epicData.description !== undefined) body.description = epicData.description;
-  if (epicData.assignee_id !== undefined) body.assignee_id = epicData.assignee_id;
-  if (epicData.deadline !== undefined) body.deadline = epicData.deadline;
-
-  try {
-    const res = await apiFetch<any>(
-      `/rest/v1/epics?id=eq.${epicData.id}`,
+export async function updateEpic(epicId: string, data: UpdateEpicData) {
+    await apiFetch<void>(
+      `/rest/v1/epics?id=eq.${epicId}`,
       {
         method: "PATCH",
-        body,
+        body: data,
       }
     );
-
-    if (!res) {
-      throw new Error("Failed to update epic");
-    }
-
-    return res;
-  } catch (error: any) {
-    throw new Error(error.message || "Failed to update epic");
-  }
+  
 }
