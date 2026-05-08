@@ -14,7 +14,9 @@ type FormData = z.infer<typeof loginSchema>;
 const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirect");
+  const redirectUrl = decodeURIComponent(
+    searchParams.get("redirect") || "/projects",
+  );
   const {
     register,
     handleSubmit,

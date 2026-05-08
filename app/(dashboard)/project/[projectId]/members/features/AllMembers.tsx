@@ -16,7 +16,6 @@ const AllMembers = () => {
     async function fetchMembers() {
       setLoading(true);
       const membersData = await getMembers(params.projectId as string);
-      console.log(membersData);
       setMembers(membersData);
       setLoading(false);
     }
