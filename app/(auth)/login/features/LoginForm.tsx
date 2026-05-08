@@ -1,5 +1,6 @@
 "use client";
 import Input from "@/components/ui/Input";
+
 import { loginSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,9 +15,10 @@ type FormData = z.infer<typeof loginSchema>;
 const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = decodeURIComponent(
-    searchParams.get("redirect") || "/projects",
-  );
+  const rawRedirect = searchParams.get("redirect");
+  const redirectUrl = rawRedirect
+    ? decodeURIComponent(rawRedirect)
+    : "/projects";
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ const LoginForm = () => {
         password: data.password,
       });
       toast.success("Logged in successfully");
-      router.push(redirectUrl || "/projects");
+      router.push(redirectUrl);
     } catch (error: any) {
       toast.error(error.message || "Login failed");
       return;
