@@ -1,6 +1,5 @@
 "use client";
 import Input from "@/components/ui/Input";
-
 import { loginSchema } from "../schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,16 +7,14 @@ import { z } from "zod";
 import { loginUser } from "../action";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 type FormData = z.infer<typeof loginSchema>;
 
-const LoginForm = () => {
+const LoginForm = ({ redirectUrl }: { redirectUrl?: string }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const rawRedirect = searchParams.get("redirect");
-  const redirectUrl = rawRedirect
-    ? decodeURIComponent(rawRedirect)
+  const rawRedirect = redirectUrl
+    ? decodeURIComponent(redirectUrl)
     : "/projects";
   const {
     register,
@@ -36,7 +33,7 @@ const LoginForm = () => {
         password: data.password,
       });
       toast.success("Logged in successfully");
-      router.push(redirectUrl);
+      router.push(rawRedirect);
     } catch (error: any) {
       toast.error(error.message || "Login failed");
       return;
