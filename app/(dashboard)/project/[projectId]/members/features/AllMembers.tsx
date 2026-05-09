@@ -27,7 +27,7 @@ const AllMembers = () => {
   return (
     <div className="py-4 min-h-screen">
       <div className="mx-auto rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* Desktop*/}
+        {/* Desktop...*/}
         <div className="hidden md:block">
           <table className="w-full text-left border-collapse">
             <thead>
