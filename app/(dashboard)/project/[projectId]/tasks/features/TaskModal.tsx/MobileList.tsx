@@ -1,5 +1,5 @@
 "use client";
-import { openTaskModal } from "@/store/slices/taskModalSlice";
+import { openTaskModal } from "@/store/slices/tasks/taskModalSlice";
 import { ITask } from "@/types/types";
 import React from "react";
 import { useDispatch } from "react-redux";

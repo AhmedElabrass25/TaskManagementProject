@@ -1,5 +1,5 @@
 "use client";
-import { openTaskModal } from "@/store/slices/taskModalSlice";
+import { openTaskModal } from "@/store/slices/tasks/taskModalSlice";
 import { ITask } from "@/types/types";
 import Image from "next/image";
 import { useDispatch } from "react-redux";

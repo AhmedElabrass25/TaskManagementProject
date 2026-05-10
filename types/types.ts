@@ -81,5 +81,7 @@ export type ITask = {
   epic: ITaskEpic | null;
   created_by: IUser;
   assignee: IUser | null;
+  assignee_id?: string | null;
   position?: number;
+  count?: number;
 };

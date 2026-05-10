@@ -1,5 +1,5 @@
 "use client";
-import { openTaskModal } from "@/store/slices/taskModalSlice";
+import { openTaskModal } from "@/store/slices/tasks/taskModalSlice";
 import { ITask } from "@/types/types";
 import { useDispatch } from "react-redux";
 import { useSortable } from "@dnd-kit/react/sortable";
@@ -35,6 +35,11 @@ export default function TaskCard({ task, index }: TaskCardProps) {
     task.status === "IN_PROGRESS" ? "border-l-[3px] border-l-blue-600" : "";
   const isDelayed = task.status === "BLOCKED";
 
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(openTaskModal(task.id));
+  };
 
   return (
     <div
@@ -44,7 +49,19 @@ export default function TaskCard({ task, index }: TaskCardProps) {
         isDelayed ? "bg-red-50/40 border-red-100" : ""
       } ${isDragging ? "shadow-lg ring-2 ring-blue-400" : ""}`}
     >
-      <Image onClick={() => dispatch(openTaskModal(task.id))} src='/icons/editbtn.svg' width={4} height={5} alt="Drag" className="absolute top-5 right-3 opacity-60 cursor-pointer" />
+      <button
+        onClick={handleEditClick}
+        className="absolute top-5 right-3 p-1 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+        type="button"
+      >
+        <Image
+          src="/icons/editbtn.svg"
+          width={5}
+          height={5}
+          alt="Edit task"
+          draggable={false}
+        />
+      </button>
       <h4 className="text-[13px] font-semibold text-slate-800 leading-snug mb-4 pointer-events-none select-none">
         {task.title}
       </h4>

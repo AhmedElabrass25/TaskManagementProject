@@ -1,12 +1,21 @@
-"use client"
-import { closeTaskModal } from "@/store/slices/taskModalSlice";
+"use client";
+import { closeTaskModal } from "@/store/slices/tasks/taskModalSlice";
 import { ITask } from "@/types/types";
 import Image from "next/image";
 import React from "react";
 import { useDispatch } from "react-redux";
+import TaskTtile from "./TaskTtile";
+import TaskDescription from "./TaskDescription";
+import TaskEpic from "./TaskEpic";
 
-const MainContent = ({ task }: { task: ITask| null }) => {
-    const dispatch =useDispatch();
+const MainContent = ({
+  task,
+  updateTaskInColumn,
+}: {
+  task: ITask | null;
+  updateTaskInColumn?: (taskId: string, changes: Partial<ITask>) => void;
+}) => {
+  const dispatch = useDispatch();
   return (
     <>
       <div className="relative flex-[1.8] overflow-y-auto border-r border-slate-100">
@@ -15,34 +24,42 @@ const MainContent = ({ task }: { task: ITask| null }) => {
             <span className="bg-indigo-50 text-indigo-600 text-[11px] font-bold px-2 py-1 rounded">
               {task?.task_id}
             </span>
-            <div className="flex items-center gap-1.5 text-slate-400 text-[12px] font-medium">
-              <Image
-                src="/icons/layericon.svg"
-                alt="epic icon"
-                width={12}
-                height={12.7}
+            {task && (
+              <TaskEpic
+                projectId={task?.project_id!}
+                taskId={task?.id!}
+                taskEpic={task?.epic?.title!}
+                updateTaskInColumn={updateTaskInColumn}
               />
-              <span>{task?.epic?.title || "No Epic Assigned"}</span>
-            </div>
+            )}
             <button
               onClick={() => dispatch(closeTaskModal())}
-              className="md:hidden cursor-pointer">
-              <Image src='/icons/close.svg' alt="close icon" width={12} height={12}/>
+              className="md:hidden cursor-pointer"
+            >
+              <Image
+                src="/icons/close.svg"
+                alt="close icon"
+                width={12}
+                height={12}
+              />
             </button>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 leading-tight">
-            {task?.title}
-          </h1>
+          {task && (
+            <TaskTtile
+              taskId={task?.id!}
+              taskTitle={task?.title!}
+              updateTaskInColumn={updateTaskInColumn}
+            />
+          )}
         </div>
         {/* Description Section */}
-        <div className="space-y-4 p-4">
-          <h3 className="text-[11px] font-bold text-[#434654] uppercase tracking-wider">
-            Description
-          </h3>
-          <p className="text-sm text-[#434654] leading-relaxed">
-            {task?.description || "No description provided for this task."}
-          </p>
-        </div>
+        {task && (
+          <TaskDescription
+            taskId={task?.id!}
+            taskDesc={task?.description!}
+            updateTaskInColumn={updateTaskInColumn}
+          />
+        )}
         {/* Modal Footer */}
         <div className="hidden md:flex absolute bottom-0 w-full p-4 bg-[#F1F3FF] border-t border-slate-100 items-center justify-between">
           <button className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 text-sm font-semibold transition-colors px-4 py-2">
