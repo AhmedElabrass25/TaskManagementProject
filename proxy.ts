@@ -8,11 +8,12 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isPublicAuthPage =
-    pathname.startsWith("/login") ||
-    pathname.startsWith("/register");
+    pathname.startsWith("/login") || pathname.startsWith("/register");
 
   const isProtectedRoute =
-    pathname.startsWith("/projects") || pathname.startsWith("/project");
+    pathname.startsWith("/projects") ||
+    pathname.startsWith("/project") ||
+    pathname.startsWith("/my-statistics");
 
   if (token && isPublicAuthPage) {
     return NextResponse.redirect(new URL("/", request.url));
@@ -25,5 +26,11 @@ export function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 export const config = {
-  matcher: ["/projects/:path*", "/project/:path*", "/login", "/register"],
+  matcher: [
+    "/projects/:path*",
+    "/project/:path*",
+    "/my-statistics",
+    "/login",
+    "/register",
+  ],
 };

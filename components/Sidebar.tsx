@@ -10,29 +10,62 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const pathname=usePathname();
+  const pathname = usePathname();
   const params = useParams();
   const projectId = params.projectId as string | undefined;
   const isActive = (match: string) => pathname.includes(match);
-  const menuItems = projectId
-    ? [
-        { icon: "/icons/dashboard.svg", label: "Projects", active: false, href: "/projects",match: "projects", },
-        { icon: "/icons/epics.svg", label: "Project Epics", active: false, href: `/project/${projectId}/epics`,match: "epics", },
-        { icon: "/icons/tasks.svg", label: "Project Tasks", active: false, href: `/project/${projectId}/tasks`,match: "tasks", },
-        { icon: "/icons/groups.svg", label: "Project Members", active: false, href: `/project/${projectId}/members`,match: "members", },
-        { icon: "/icons/details.svg", label: "Project Details", active: false, href: `/project/${projectId}/edit`,match: "edit", },
-      ]: [
-        { icon: "/icons/dashboard.svg", label: "Projects", active: true, href: "/projects",match: "projects", },
-      ];
+  const menuItems = [
+    // ALWAYS SHOW
+    {
+      icon: "/icons/dashboard.svg",
+      label: "Projects",
+      href: "/projects",
+      match: "projects",
+    },
+    {
+      icon: "/icons/statistics.svg",
+      label: "My Statistics",
+      href: "/my-statistics",
+      match: "my-statistics",
+    },
+
+    // ONLY IF project exists
+    ...(projectId
+      ? [
+          {
+            icon: "/icons/epics.svg",
+            label: "Project Epics",
+            href: `/project/${projectId}/epics`,
+            match: "epics",
+          },
+          {
+            icon: "/icons/tasks.svg",
+            label: "Project Tasks",
+            href: `/project/${projectId}/tasks`,
+            match: "tasks",
+          },
+          {
+            icon: "/icons/groups.svg",
+            label: "Project Members",
+            href: `/project/${projectId}/members`,
+            match: "members",
+          },
+          {
+            icon: "/icons/details.svg",
+            label: "Project Details",
+            href: `/project/${projectId}/edit`,
+            match: "edit",
+          },
+        ]
+      : []),
+  ];
   // logout handler
   const handleLogout = async () => {
     try {
       await logoutAction();
       localStorage.clear();
       sessionStorage.clear();
-
       toast.success("Logged out successfully");
-
       router.push("/login");
     } catch (error) {
       toast.error("Logout failed, please try again.");
@@ -76,24 +109,24 @@ export default function Sidebar() {
         <nav className="flex-1 px-3 space-y-2 pt-18 md:pt-5">
           {menuItems.map((item) => (
             <Link href={item.href || "#"} key={item.label}>
-            <button
- className={`group w-full flex items-center gap-4 p-3 rounded-sm cursor-pointer transition
-      ${isActive(item.match) ? "bg-white text-black" : "text-slate-900 hover:bg-white"}`}             
-            >
-              <Image
-                src={item.icon}
-                alt={item.label}
-                className="w-5 h-5 group-hover:text-(--color-primary)"
-                width={20}
-                height={20}
-              />
+              <button
+                className={`group w-full flex items-center gap-4 p-3 rounded-sm cursor-pointer transition
+      ${isActive(item.match) ? "bg-white text-black" : "text-slate-900 hover:bg-white"}`}
+              >
+                <Image
+                  src={item.icon}
+                  alt={item.label}
+                  className="w-5 h-5 group-hover:text-(--color-primary)"
+                  width={20}
+                  height={20}
+                />
 
-              {!isCollapsed && (
-                <span className="text-sm font-medium group-hover:text-(--color-primary)">
-                  {item.label}
-                </span>
-              )}
-            </button>
+                {!isCollapsed && (
+                  <span className="text-sm font-medium group-hover:text-(--color-primary)">
+                    {item.label}
+                  </span>
+                )}
+              </button>
             </Link>
           ))}
         </nav>
